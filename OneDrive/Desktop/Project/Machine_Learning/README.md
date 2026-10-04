@@ -38,8 +38,8 @@ Python, pandas, numpy, matplotlib, seaborn, scikit-learn, XGBoost, SHAP, Streaml
 ## 7. Project Status
 - [x] Phase 1: Setup
 - [x] Phase 2: Problem definition
-- [ ] Phase 3: Data understanding (EDA)
-- [ ] Phase 4: Data preparation
+- [x] Phase 3: Data understanding (EDA)
+- [x] Phase 4: Data preparation
 - [ ] Phase 5: Feature engineering
 - [ ] Phase 6: Modeling
 - [ ] Phase 7: Evaluation
