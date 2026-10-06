@@ -40,7 +40,7 @@ Python, pandas, numpy, matplotlib, seaborn, scikit-learn, XGBoost, SHAP, Streaml
 - [x] Phase 2: Problem definition
 - [x] Phase 3: Data understanding (EDA)
 - [x] Phase 4: Data preparation
-- [ ] Phase 5: Feature engineering
+- [x] Phase 5: Feature engineering
 - [ ] Phase 6: Modeling
 - [ ] Phase 7: Evaluation
 - [ ] Phase 8: Explainability
