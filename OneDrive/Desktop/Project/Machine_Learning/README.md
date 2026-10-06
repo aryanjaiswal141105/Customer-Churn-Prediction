@@ -43,9 +43,9 @@ Python, pandas, numpy, matplotlib, seaborn, scikit-learn, XGBoost, SHAP, Streaml
 - [x] Phase 5: Feature engineering
 - [x] Phase 6: Modeling
 - [x] Phase 7: Evaluation
-- [ ] Phase 8: Explainability
-- [ ] Phase 9: Productionizing
-- [ ] Phase 10: Documentation
+- [x] Phase 8: Explainability
+- [x] Phase 9: Productionizing
+- [x] Phase 10: Documentation
 
 ## 8. Business Questions (My Answer)
 
