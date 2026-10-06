@@ -41,7 +41,7 @@ Python, pandas, numpy, matplotlib, seaborn, scikit-learn, XGBoost, SHAP, Streaml
 - [x] Phase 3: Data understanding (EDA)
 - [x] Phase 4: Data preparation
 - [x] Phase 5: Feature engineering
-- [ ] Phase 6: Modeling
+- [x] Phase 6: Modeling
 - [ ] Phase 7: Evaluation
 - [ ] Phase 8: Explainability
 - [ ] Phase 9: Productionizing
