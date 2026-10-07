@@ -1,62 +1,106 @@
 # Customer Churn Prediction
 
-Predicting which telecom customers are likely to leave, using machine learning.
+Predicting which telecom customers are likely to leave, using machine learning, with an interactive Streamlit app.
 
-## 1. Problem Statement
-A telecom company loses revenue when customers cancel their service.
-Finding a new customer costs much more than keeping an existing one.
-This project builds a model that predicts **which customers are likely to churn**,
-so the company can contact them with retention offers before they leave.
+## 1. Problem
 
-## 2. Objective
-Build a binary classification model that predicts whether a customer will churn
-(`Churn = Yes`) using customer account, service, and billing information.
+A telecom company loses revenue when customers cancel. Keeping a customer costs less than finding a new one. This project predicts which customers are likely to churn so the company can contact them with retention offers in time.
 
-## 3. Definition of Churn
-- **Churn = Yes**: the customer left the company
-- **Churn = No**: the customer stayed
-- **Target column**: `Churn`
+* Task: binary classification (Churn = Yes or No)
+* Main metrics: recall and precision on the churn class, ROC-AUC, PR-AUC (accuracy is not the main metric because only about 27% of customers churn)
 
-## 4. Dataset
-- Name: Telco Customer Churn (IBM sample dataset)
-- Size: 7,043 customers, 21 columns
-- Source: Kaggle
-- Class balance: about 73% stayed, 27% churned (imbalanced)
+## 2. Data
 
-## 5. Success Metrics
-Model Evaluation Metrics
-Recall: Catches as many real churners as possible so the business does not lose them.
-Precision: Prevents wasting expensive retention offers on loyal customers who intend to stay.
-F1 Score: Provides a single score that balances both Recall and Precision.
-ROC AUC: Measures how well the model tells the difference between a churner and a loyal customer.
+* Dataset: Telco Customer Churn (IBM sample data), from Kaggle
+* Size: 7,043 customers, 21 columns
+* Class balance: about 73% stayed, 27% churned
+* Data issue found: TotalCharges was stored as text and had 11 blanks (all new customers with tenure = 0), filled with 0
 
-Accuracy is **not** the main metric because the data is imbalanced.
+The dataset is not modified. The raw file is in data/raw/.
 
-## 6. Tools
-Python, pandas, numpy, matplotlib, seaborn, scikit-learn, XGBoost, SHAP, Streamlit
+## 3. Method
 
-## 7. Project Status
-- [x] Phase 1: Setup
-- [x] Phase 2: Problem definition
-- [x] Phase 3: Data understanding (EDA)
-- [x] Phase 4: Data preparation
-- [x] Phase 5: Feature engineering
-- [x] Phase 6: Modeling
-- [x] Phase 7: Evaluation
-- [x] Phase 8: Explainability
-- [x] Phase 9: Productionizing
-- [x] Phase 10: Documentation
+* EDA: Looked at churn by contract, tenure, charges, and so on (01_eda.ipynb)
+* Preprocessing: Fixed types, encoded text, split 80/20 (stratified), scaled using train only (02_preprocessing.ipynb)
+* Feature engineering: Added num_addons, has_family, is_autopay, avg_charge, charge_diff, tenure_group (03_feature_engineering.ipynb)
+* Modeling: Compared Logistic Regression, Random Forest, XGBoost, LightGBM with 5-fold CV, tuned the best (04_modeling.ipynb)
+* Evaluation: Tested once on the test set, chose the threshold using train data only (05_evaluation.ipynb)
+* Explainability: SHAP for global and per-customer explanations (06_explainability.ipynb)
+* Production: Reusable code in src/, tests, Streamlit app (src/, tests/, app/)
 
-## 8. Business Questions (My Answer)
+Leakage prevention: split before scaling, scaler fitted on train only, class weights instead of SMOTE, threshold chosen on out-of-fold train predictions, test set used once.
 
-1. Who will use this model's Predictions?
+## 4. Results
 
-- Customer Success, Marketing, and Sales teams will use these predictions to identify at-risk accounts before they cancel their subscriptions.
+Chosen model: FILL_IN (feature set: FILL_IN)
 
-2. What action will they take for a high-risk customer ?
+Metrics on test set:
 
-- They will take proactive retention measures, such as offering targeted discounts, personalized contract upgrades, or direct customer service outreach to resolve their issues.
+* Recall (churn): FILL_IN
+* Precision (churn): FILL_IN
+* F1: FILL_IN
+* F2: FILL_IN
+* ROC-AUC: FILL_IN (cross-validation: FILL_IN)
+* PR-AUC: FILL_IN (random guessing would score about 0.27)
 
-3. Which is worse:missing a churner, or wrongly flagging a loyal customer? Why?
+Did the new features help? FILL_IN
 
-- Missing a churner is worse because losing a customer results in a direct, permanent loss of revenue, and acquiring a replacement customer is up to 5 to 25 times more expensive than the small cost of offering an unnecessary promotion to a loyal customer.
+Top churn drivers (SHAP):
+
+1. FILL_IN
+2. FILL_IN
+3. FILL_IN
+4. FILL_IN
+5. FILL_IN
+
+## 5. How to run
+
+1. Clone the repository:
+git clone [https://github.com/aryanjaiswal141105/Customer-Churn-Prediction.git](https://github.com/aryanjaiswal141105/Customer-Churn-Prediction.git)
+cd Customer-Churn-Prediction
+2. Create and activate a virtual environment:
+python -m venv venv
+venv\Scripts\activate
+3. Install libraries:
+pip install -r requirements.txt
+4. Add the dataset:
+Download from Kaggle, rename it to telco_churn.csv, and place it in data/raw/
+5. Run the tests:
+python -m pytest tests -v
+6. Launch the app:
+streamlit run app/app.py
+
+To rebuild the model from the raw data:
+python -m src.train
+
+## 6. Project structure
+
+customer-churn-prediction/
+
+* data/ : raw and processed data
+* notebooks/ : 01 to 06: EDA, preprocessing, features, modeling, evaluation, SHAP
+* src/ : reusable code (config, preprocessing, predict, train)
+* models/ : saved model, scaler, columns, metrics
+* reports/ : figures and final report
+* app/ : Streamlit app
+* tests/ : automatic tests
+* requirements.txt
+* README.md
+
+## 7. Limitations
+
+* One dataset of 7,043 customers from one company, so results may not transfer.
+* The model's score is a risk score for ranking, not an exact probability, because class weights shift the outputs upward.
+* SHAP shows what the model uses, not what causes churn. Retention ideas must be tested (for example with an A/B test) before being trusted.
+* The data has no dates, so I used a random split, not a time-based one.
+
+## 8. Future work
+
+* Test retention offers with an A/B experiment
+* Calibrate the probabilities
+* Try a time-based split with real company data
+* Deploy the app online
+
+## 9. Tools
+
+Python, pandas, numpy, matplotlib, seaborn, scikit-learn, XGBoost, LightGBM, SHAP, Streamlit, pytest
